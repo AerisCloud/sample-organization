@@ -1,0 +1,23 @@
+# service: Document database.
+- hosts: mongodb
+  gather_facts: true
+  user: '{{ username }}'
+  sudo: true
+  roles:
+    - aeriscloud.mongodb
+
+# service: Advanced key-value cache and store.
+- hosts: redis
+  gather_facts: true
+  sudo: true
+  user: '{{ username }}'
+  roles:
+    - aeriscloud.redis
+
+# service: Event-driven I/O server-side JavaScript environment based on V8.
+- hosts: nodejs
+  gather_facts: true
+  sudo: true
+  user: '{{ username }}'
+  roles:
+    - aeriscloud.nodejs

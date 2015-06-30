@@ -1,0 +1,38 @@
+- name: "Dynamically add the machine to the inventory"
+  hosts: all
+  gather_facts: true
+  sudo: true
+  user: vagrant
+  tasks:
+    - name: "Adding host"
+      add_host: >
+        name="{{ inventory_hostname }}"
+        user="vagrant"
+        ansible_ssh_host="{{ ansible_eth1["ipv4"]["address"] }}"
+        ansible_ssh_port=22
+        groups="{{ services | default([]) | union(['dev']) | join(',') }}"
+      tags:
+        - inventory
+
+    - name: "Setting host's facts"
+      set_fact:
+        username: vagrant
+        #
+        # Networking
+        #
+        private_interface: eth1
+        private_network: 172.16.0.0
+        private_netmask: 255.255.0.0
+        server_hostname: "{{ inventory_hostname }}"
+
+        #
+        # Project-related information
+        #
+        project_dir: "/home/vagrant/{{ project_name }}"
+        project_user: "vagrant"
+        project_environment: "development"
+      tags:
+        - inventory
+
+- name: "Apply roles"
+  include: env_production.yml
