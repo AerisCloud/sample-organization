@@ -1,4 +1,4 @@
-aeriscloud.mongodb
-aeriscloud.nodejs
-aeriscloud.redis
-aeriscloud.yum
+AerisCloud.mongodb
+AerisCloud.nodejs
+AerisCloud.redis
+AerisCloud.yum
